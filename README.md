@@ -1,2 +1,2 @@
 # my-ansible-project
-stockage de projet Ansible
+stockage de projet Ansible pour AWX
