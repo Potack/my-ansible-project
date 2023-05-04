@@ -1,0 +1,30 @@
+- name: Installer WildFly et PostgreSQL
+  hosts: all
+
+  tasks:
+    - name: Mettre à jour les packages
+      apt:
+        update_cache: yes
+
+    - name: Installer les packages requis
+      apt:
+        name:
+          - openjdk-11-jdk
+          - postgresql
+          - postgresql-contrib
+          - libpq-dev
+          - python3-psycopg2
+          - wget
+        state: present
+
+    - name: Télécharger WildFly
+      get_url:
+        url: "https://github.com/wildfly/wildfly/releases/download/28.0.0.Final/wildfly-28.0.0.Final.tar.gz"
+        dest: "/tmp/wildfly-latest"
+
+    - name: Extraire WildFly
+      unarchive:
+        src: "/tmp/wildfly-latest"
+        dest: "/opt"
+        remote_src: yes
+        creates: "/opt/wildfly-latest"
